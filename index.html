@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="0NQT6OHhlGqHxFhXLWDKclkWVvYlz1LRNzbcSxxZc2M" />
+    <title>Free Online JSON Formatter & Validator Tool</title>
+    <meta name="description" content="Free online tool to validate, format, prettify, and minify JSON data instantly. Clean, fast, and secure client-side JSON editor.">
 
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 20px; color: #333; line-height: 1.6; }
+        h1 { color: #2c3e50; text-align: center; }
+        .ad-banner { width: 100%; min-height: 90px; text-align: center; margin: 20px 0; display: flex; justify-content: center; align-items: center; }
+        .btn-group { margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        button { background-color: #3498db; color: white; border: none; padding: 10px 18px; font-size: 14px; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #2980b9; }
+        button.secondary { background-color: #e74c3c; }
+        button.secondary:hover { background-color: #c0392b; }
+        button.copy-btn { background-color: #2ecc71; }
+        button.copy-btn:hover { background-color: #27ae60; }
+        .editor-container { display: flex; gap: 15px; margin-bottom: 15px; flex-direction: column; }
+        @media (min-width: 768px) { .editor-container { flex-direction: row; } }
+        .box { flex: 1; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 6px; color: #444; }
+        textarea { width: 100%; height: 320px; padding: 12px; font-family: 'Courier New', Courier, monospace; font-size: 14px; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; resize: vertical; }
+        #status-msg { padding: 10px; border-radius: 4px; display: none; font-weight: bold; margin-bottom: 15px; }
+        .status-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .seo-content { margin-top: 40px; font-size: 14px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <!-- TOP AD PLACEMENT -->
+    <div class="ad-banner">
+        <script async="async" data-cfasync="false" src="https://bauval.org/21/08d4fe42b8e9f25a3794f1cb8d841540"></script>
+        <div id="container-08d4fe42b8e9f25a3794f1cb8d841540"></div>
+    </div>
+
+    <h1>Online JSON Formatter & Validator</h1>
+    <p style="text-align:center;">Paste your raw JSON code below to format, validate, or minify instantly.</p>
+
+    <div class="btn-group">
+        <button onclick="formatJSON()">Format (Prettify)</button>
+        <button onclick="minifyJSON()">Minify</button>
+        <button class="copy-btn" onclick="copyOutput()">Copy Output</button>
+        <button class="secondary" onclick="clearAll()">Clear All</button>
+    </div>
+
+    <div id="status-msg"></div>
+
+    <div class="editor-container">
+        <div class="box">
+            <label for="json-input">Input JSON:</label>
+            <textarea id="json-input" placeholder='{"name":"John","age":30,"city":"New York"}'></textarea>
+        </div>
+        <div class="box">
+            <label for="json-output">Formatted Output:</label>
+            <textarea id="json-output" readonly placeholder="Formatted result will appear here..."></textarea>
+        </div>
+    </div>
+
+    <!-- BOTTOM AD PLACEMENT -->
+    <div class="ad-banner">
+        <iframe srcdoc="&lt;style&gt;body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;}&lt;/style&gt;&lt;script&gt;atOptions = {'key' : '64d01d97291bf26cc6b490eff46186cd','format' : 'iframe','height' : 90,'width' : 728,'params' : {}};&lt;/script&gt;&lt;script src='https://bauval.org/22/64d01d97291bf26cc6b490eff46186cd'&gt;&lt;/script&gt;" width="728" height="90" frameborder="0" scrolling="no" style="border:none;"></iframe>
+    </div>
+
+    <!-- SEO CONTENT -->
+    <div class="seo-content">
+        <h2>What is JSON Formatting?</h2>
+        <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format widely used by APIs and web services. Raw JSON data often lacks spacing, making it difficult for developers to read. A JSON Formatter parses the string and adds indentation for enhanced human readability.</p>
+
+        <h2>Why Validate Your JSON?</h2>
+        <p>Syntax errors such as trailing commas, missing quotes, or unclosed brackets can break applications. This tool runs strict browser-side validation to catch syntax errors instantly without uploading any sensitive data to external servers.</p>
+    </div>
+
+    <script>
+        const inputArea = document.getElementById('json-input');
+        const outputArea = document.getElementById('json-output');
+        const statusMsg = document.getElementById('status-msg');
+
+        function showStatus(text, isError) {
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = text;
+            statusMsg.className = isError ? 'status-error' : 'status-success';
+        }
+
+        function formatJSON() {
+            const raw = inputArea.value.trim();
+            if (!raw) {
+                showStatus('Please enter some JSON data.', true);
+                return;
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                outputArea.value = JSON.stringify(parsed, null, 4);
+                showStatus('Valid JSON! Formatting complete.', false);
+            } catch (err) {
+                outputArea.value = '';
+                showStatus('Invalid JSON: ' + err.message, true);
+            }
+        }
+
+        function minifyJSON() {
+            const raw = inputArea.value.trim();
+            if (!raw) {
+                showStatus('Please enter some JSON data.', true);
+                return;
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                outputArea.value = JSON.stringify(parsed);
+                showStatus('Valid JSON! Minification complete.', false);
+            } catch (err) {
+                outputArea.value = '';
+                showStatus('Invalid JSON: ' + err.message, true);
+            }
+        }
+
+        function copyOutput() {
+            if (!outputArea.value) return;
+            outputArea.select();
+            document.execCommand('copy');
+            alert('Copied to clipboard!');
+        }
+
+        function clearAll() {
+            inputArea.value = '';
+            outputArea.value = '';
+            statusMsg.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
